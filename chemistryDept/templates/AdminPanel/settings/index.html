@@ -1,0 +1,40 @@
+{% extends "layouts/admin.html" %}
+{% load static %}
+{% block links %}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
+{% block content %}
+<main class="content">
+  <div class="container-fluid p-0">
+    <div class="d-flex justify-content-between pb-5">
+      <h1 class="h3 mb-3"><strong>Settings</strong> </h1>
+    </div>
+    <div class="row">
+      <div class="col">
+        <a href="{% url 'homebanner'%}">
+        <div class="card bg-primary">
+          <div class="card-body">
+            <h2 class="text-center text-light">Home Banner</h2>
+          </div>
+        </div>
+        </a>
+      </div>
+      <div class="col">
+        <div class="card bg-success">
+          <div class="card-body">
+            <h2 class="text-center text-light">Home About</h2>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card bg-info">
+          <div class="card-body">
+            <h2 class="text-center text-light">Home Blog</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

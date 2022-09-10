@@ -34,58 +34,19 @@
             <div id="slider_holder">
               <div id="sequence">
                 <ul>
-                  <!-- Layer 1 -->
-                  <li>
-                    <div class="info animate-in">
-                      <h2>Chemistry Researchers</h2><br>
-                      <h3>University Of New Haven</h3>
-                      <p>
-                        Department of Chemistry and Chemical and Biomedical Engineering
-                      </p>
-                      <a class="btn btn-success" href="research.html">Learn more &raquo;</a>
-                    </div>
-                    <img class="slider_img animate-in" src="{% static '/img/slides/sequence/lab.jpg' %}" alt="" style="width: 500px; height: 500px; margin-left: 800px;">
-                  </li>
-                  <!-- Layer 2 -->
-                  <li>
-                    <div class="info">
-                      <h2>Invention</h2>
-                      <br>
-                      <h3>Join Chemistry Club</h3>
-                      <p>
-                        University of New haven is offering Masters and Bachelor.
-                      </p>
-                      <a class="btn btn-success" href="#">Learn more &raquo;</a>
-                    </div>
-                    <img class="slider_img" src="{% static '/img/slides/sequence/img2.jpg' %}" alt="" style="width: 500px; height: 500px; margin-left: 800px;">
-                  </li>
-                  <!-- Layer 3 -->
-                  <li>
-                    <div class="info">
-                      <h2>HOW SOME GUT MICROBES AWAKEN ZOMBIE VIRUSES IN THEIR NEIGHBORS</h2>
-                      <br>
-                      <h3>Latest technology</h3>
-                      <p>
-                        Nature has published new research from the Balskus Lab about the effect of colibactin on the microbime. Read more via Howard Hughes Medical Institute.
-                      </p>
-                      <a class="btn btn-success" href="#">Learn more &raquo;</a>
-                    </div>
-                    <img class="slider_img" src="{% static '/img/slides/sequence/img-3.png' %}" alt="" style="width: 500px; height: 500px; margin-left: 800px;">
-                  </li>
-                  <!-- Layer 4 -->
-                  <li>
-                    <div class="info">
-                      <h2>Laboratory of Natural Product Synthesis and Medicinal Chemistry </h2>
-                      <br>
-                      <h3>Directed by Dr. Pier Cirillo</h3>
-                      <p>
-                        The ultimate aim is to discover new drugs, especially antibiotics against pathogens such as MRSA, or anti-biofilm agents. The compounds are tested in collaboration with microbiologists at UNH or in industry
-                      </p>
-                      <a class="btn btn-success" href="#">Learn more &raquo;</a>
-                    </div>
-                    <img class="slider_img" src="{% static '/img/slides/sequence/picture6.png' %}" alt="" style="width: 500px; height: 500px; margin-left: 800px;">
-                  </li>
-                  <!-- Layer 4 END-->
+                  {% for value in banner %}
+                    <li>
+                      <div class="info animate-in">
+                        <h2>{{ value.banner_title }}</h2><br>
+                        <h3>{{ value.banner_subtitle }}</h3>
+                        <p>
+                           {{ value.banner_description}}
+                        </p>
+                        <a class="btn btn-success" href="{{ value.banner_url}}">Learn more &raquo;</a>
+                      </div>
+                      <img class="slider_img animate-in" src="/media/{{ BASIC_DIR }}/{{value.banner_cover}}" alt="" style="width: 500px; height: 500px; margin-left: 800px; object-fit:cover;">
+                    </li>
+                  {% endfor%}
                 </ul>
               </div>
             </div>

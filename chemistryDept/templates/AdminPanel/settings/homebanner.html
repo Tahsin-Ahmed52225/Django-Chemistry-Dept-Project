@@ -1,0 +1,77 @@
+{% extends "layouts/admin.html" %}
+{% load static %}
+{% block links %}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
+{% block content %}
+<main class="content">
+  <div class="container-fluid p-0">
+
+     {% if messages %}
+             {% for message in messages %}
+             <div {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissible  show "{% endif %} role="alert">
+                 {{ message }}
+                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+                 </button>
+             </div>
+             {% endfor %}
+     {% endif %}
+     <!-- Home page banner section started  -->
+     <div class="d-flex justify-content-between align-items-center pt-2 pb-2">
+       <h1 class="h4"><strong>Settings: Homepage Banner</strong> </h1>
+       <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#addBannerModal">Add Banner</button>
+     </div>
+      <div>
+           <table id="example" class="display" style="width:100%">
+               <thead>
+                   <tr>
+                       <th>#</th>
+                       <th>Title</th>
+                       <th>Action</th>
+                   </tr>
+               </thead>
+               <tbody>
+                 {% for value in all_banner %}
+                   <tr>
+                       <td>
+                         Slide-{{ forloop.counter }}
+                       </td>
+                       <td>
+                         <img src="/media/{{ BASIC_DIR }}/{{value.banner_cover}}" alt="" style="height:30px; width:30px; border-radius: 4px; "/>
+                         {{ value.banner_title}}
+                       </td>
+                       <td>
+                         <button data-id="{{ value.id }}" class="btn btn-sm btn-primary edit-btn" data-toggle="modal" data-target="#editBannerModal">Edit</button>
+                         <button  data-id="{{ value.id }}" data-page="settings/homebanner" class="btn btn-sm btn-danger del-btn" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                       </td>
+                   </tr>
+                   {% endfor %}
+               </tbody>
+           </table>
+
+      </div>
+      <!-- Home page banner section ended  -->
+  </div>
+</main>
+
+{% include '../../modals/addBanner.html' %}
+{% include '../../modals/deleteModal.html' %}
+{% include '../../modals/editBanner.html' %}
+{% endblock %}
+
+
+{% block scripts %}
+<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+		$(document).ready(function () {
+		    $('#example').DataTable({
+					 paging: false
+				});
+		});
+</script>
+
+<script src="{% static 'js/editBanner.js' %}"></script>
+<script src="{% static 'js/deleteData.js' %}"></script>
+{% endblock %}
