@@ -24,3 +24,14 @@ class banner(models.Model) :
 class about(models.Model):
     about_description = models.TextField(max_length=100)
     about_url = models.TextField(max_length=100)
+class awards(models.Model):
+    award_title = models.TextField(max_length=100)
+    award_discription = models.TextField(max_length=100)
+    award_url = models.TextField(max_length=100)
+    award_cover = models.ImageField(null=True, blank=True, upload_to="Images/")
+
+    def __str__(self):
+        return self.award_title
+    def awards_info(self):
+        awards_info = [self.award_title , str(self.award_cover), self.award_discription, self.award_url]
+        return awards_info
