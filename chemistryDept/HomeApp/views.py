@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from AdminPanel.models import banner
+from AdminPanel.models import banner,about
 from researchApp.models import research_overview, research_by_direction,research_by_area
 from peopleApp.models import faculty,staff,student
 from resourceApp.models import labFacility
@@ -11,7 +11,8 @@ from newsApp.models import new
 
 def index(request):
     banners = banner.objects.all()
-    return render(request,'HomeApp/index.html',context={'banner':banners})
+    abouts = about.objects.all()
+    return render(request,'HomeApp/index.html',context={'banner':banners,'abouts':abouts})
 
 
 #About page view

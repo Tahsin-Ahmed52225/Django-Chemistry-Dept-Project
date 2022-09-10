@@ -1,0 +1,70 @@
+{% extends "layouts/admin.html" %}
+{% load static %}
+{% block links %}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
+{% block content %}
+<main class="content">
+  <div class="container-fluid p-0">
+
+     {% if messages %}
+             {% for message in messages %}
+             <div {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissible  show "{% endif %} role="alert">
+                 {{ message }}
+                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+                 </button>
+             </div>
+             {% endfor %}
+     {% endif %}
+     <!-- Home page banner section started  -->
+     <div class="d-flex justify-content-between align-items-center pt-2 pb-2">
+       <h1 class="h4"><strong>Settings: Homepage About</strong> </h1>
+     </div>
+      <div style="width:50%">
+     {% for home_about in home_about %}
+        <form action="{% url 'homeabout'%}" method="POST">
+        {% csrf_token %}
+          <div class="form-group">
+              <label for="exampleFormControlTextarea1">About Description</label>
+              <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" required name="about_description">{{ home_about.about_description}}</textarea >
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="exampleInputPassword1">About URL</label>
+                <input type="url" class="form-control" id="embeded_link" name="about_url" value="{{home_about.about_url}}" required>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="card" >
+                    <div class="card-body">
+                        <iframe style="width:100%; height:400px;" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ></iframe>
+                    </div>
+            </div>
+          </div>
+          <button type="submit"  class="btn btn-primary">Save Data</button>
+        </form>
+        {% endfor %}
+      </div>
+      <!-- Home page banner section ended  -->
+  </div>
+</main>
+{% endblock %}
+
+
+{% block scripts %}
+<script type="text/javascript">
+  $(window).on("load",function(){
+      let value = $('#embeded_link').val();
+      $('iframe').attr('src',value);
+      $("#embeded_link").bind("paste", function(e){
+              let pastedData = e.originalEvent.clipboardData.getData('text');
+              $('iframe').attr('src',pastedData);
+          }
+      );
+  })
+</script>
+{% endblock %}

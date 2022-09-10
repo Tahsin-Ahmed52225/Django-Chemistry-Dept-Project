@@ -21,3 +21,6 @@ class banner(models.Model) :
     def banner_info(self):
         banner_info = [self.banner_title , str(self.banner_cover), self.banner_description, self.banner_url, self.banner_subtitle]
         return banner_info
+class about(models.Model):
+    about_description = models.TextField(max_length=100)
+    about_url = models.TextField(max_length=100)

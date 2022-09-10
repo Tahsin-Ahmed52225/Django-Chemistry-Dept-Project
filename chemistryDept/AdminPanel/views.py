@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect,HttpResponse,JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
-from .models import Userinfo,banner
+from .models import Userinfo,banner,about
 import json
 
 from django.contrib.auth.models import User
@@ -112,3 +112,23 @@ def editHomeBanner(request,id):
        return HttpResponseRedirect(reverse('homebanner'))
     else:
        return HttpResponseRedirect(reverse('index'))
+#Setting : Home about
+@login_required
+def homeabout(request):
+    if request.method == "GET":
+        home_about = about.objects.all()
+        return render(request,"AdminPanel/settings/homeabout.html",context={'home_about':home_about})
+    if request.method == "POST":
+        home_about = about.objects.all()
+        if home_about.exists():
+            home_about = about.objects.get(id=1)
+            home_about.about_description = request.POST.get('about_description')
+            home_about.about_url = request.POST.get('about_url')
+            home_about.save()
+        else:
+            home_about = about()
+            home_about.about_description = request.POST.get('about_description')
+            home_about.about_url = request.POST.get('about_url')
+            home_about.save()
+        messages.success(request, 'Home about updated!')
+        return HttpResponseRedirect(reverse('homeabout'))

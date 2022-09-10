@@ -17,5 +17,7 @@ urlpatterns = [
     path('settings/add-homebanner', views.addHomeBanner, name='add_homebanner'),
     path('settings/homebanner/getData/<int:id>', views.getHomeBanner, name='get_homebanner_data'),
     path('settings/homebanner/edit-data/<int:id>', views.editHomeBanner, name='edit_homebanner_data'),
-    path('settings/homebanner/<int:id>/delete', views.deleteHomeBanner, name='delete_banner')
+    path('settings/homebanner/<int:id>/delete', views.deleteHomeBanner, name='delete_banner'),
+    #Home about url
+    path('settings/homeabout', views.homeabout, name='homeabout'),
 ]
