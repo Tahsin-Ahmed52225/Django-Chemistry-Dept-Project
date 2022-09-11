@@ -20,4 +20,11 @@ urlpatterns = [
     path('settings/homebanner/<int:id>/delete', views.deleteHomeBanner, name='delete_banner'),
     #Home about url
     path('settings/homeabout', views.homeabout, name='homeabout'),
+    #Home award section
+    path('settings/homeaward', views.homeaward, name='homeaward'),
+    path('settings/add-homeaward', views.addHomeaward, name='add_homeaward'),
+    path('settings/homeaward/<int:id>/delete', views.deleteHomeAward, name='delete_award'),
+    path('settings/homeaward/getData/<int:id>', views.getHomeAward, name='get_homeaward_data'),
+    path('settings/homeaward/edit-data/<int:id>', views.editHomeAward, name='edit_homeaward_data'),
+
 ]

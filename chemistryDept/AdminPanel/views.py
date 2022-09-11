@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect,HttpResponse,JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
-from .models import Userinfo,banner,about
+from .models import Userinfo,banner,about,awards
 import json
 
 from django.contrib.auth.models import User
@@ -132,3 +132,51 @@ def homeabout(request):
             home_about.save()
         messages.success(request, 'Home about updated!')
         return HttpResponseRedirect(reverse('homeabout'))
+#Setting : Home award show all
+def homeaward(request):
+    all_award = awards.objects.all()
+    return render(request,"AdminPanel/settings/homeaward.html",context={'all_award':all_award})
+#Settings : Add home award
+def addHomeaward(request):
+    if request.method == "POST":
+       new_award = awards()
+       new_award.award_title = request.POST.get('award_title')
+       new_award.award_discription = request.POST.get('award_discription')
+       new_award.award_url = request.POST.get('award_url')
+       new_award.award_cover = request.FILES["award_cover"]
+       new_award.save()
+
+       messages.success(request, 'New award added!')
+       return HttpResponseRedirect(reverse('homeaward'))
+    else:
+        return HttpResponseRedirect(reverse('index'))
+def deleteHomeAward(request,id):
+    if request.method == "POST":
+        awards.objects.filter(id=id).delete()
+        messages.success(request, 'Awards Deleted!')
+        return HttpResponseRedirect(reverse('homeaward'))
+    else:
+        return HttpResponseRedirect(reverse('index'))
+
+#Edit home award data
+@login_required
+def editHomeAward(request,id):
+    if request.method == "POST":
+       award = awards.objects.get(id=id)
+       award.award_title = request.POST.get('award_title_edit')
+       award.award_subtitle = request.POST.get('award_subtitle_edit')
+       award.award_description = request.POST.get('award_description_edit')
+       award.award_url = request.POST.get('award_url_edit')
+       if bool(request.FILES.get('award_cover_edit', False)) == True:
+         award.award_cover = request.FILES["award_cover_edit"]
+       award.save()
+       messages.success(request, 'Award data changed!')
+       return HttpResponseRedirect(reverse('homeaward'))
+    else:
+       return HttpResponseRedirect(reverse('index'))
+#Get home award data
+@login_required
+def getHomeAward(request,id):
+    award = awards.objects.get(id=id)
+    data = json.dumps(award.awards_info())
+    return JsonResponse({'data': data})

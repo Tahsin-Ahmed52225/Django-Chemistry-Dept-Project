@@ -82,26 +82,28 @@
               <p>Get an inside look at what differentiates the University of New Haven and how your experiences as a student will prepare you for success.</p>
             </div>
         </div>
+        {% for value in award %}
         <article class="span12">
           <article class="blog-post">
             <!-- Article 1 start -->
             <div class="row">
               <div class="span4">
-                <img src="https://www.newhaven.edu/_resources/images/accreditations/acs-logo.svg" style="width:250px; height:200px;">
+                <img src="/media/{{ BASIC_DIR }}/{{value.award_cover}}" style="width:250px; height:200px; object-fit:cover;">
               </div>
               <div class="span8">
                 <div class="post-heading">
-                  <h3><a href="#">American Chemical Society Accreditation</a></h3>
+                  <h3><a href="#">{{value.award_title}}</a></h3>
                 </div>
                 <blockquote>
-                  <p>ACS promotes excellence in chemistry education for undergraduate students through approval of baccalaureate chemistry programs. ACS-approved programs offer a broad-based and rigorous chemistry education that gives students intellectual, experimental, and communication skills to become effective scientific professionals.</p>
+                  <p>{{value.award_description}}</p>
                 </blockquote>
-                <a class="btn btn-success" href="#">Learn more &raquo;</a>
+                <a class="btn btn-success" href="{{value.award_url}}">Learn more &raquo;</a>
               </div>
             </div>
             <!-- Article 2 END -->
           </article>
         </article>
+        {% endfor %}
       </div>
     </div>
         <!-- END Award Wining -->
